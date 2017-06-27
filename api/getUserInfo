@@ -1,0 +1,10 @@
+{
+	"code":0,
+	"message":"ok",
+	"data":
+	{
+		"name":"zzz",
+		"email":"zzz@test.org",
+		"id":1
+	}
+}

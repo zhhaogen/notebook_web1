@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>云笔记</title>
+	<link rel="stylesheet" href="../public/css/css.css" type="text/css" />
+	<script src="../public/js/base.js" ></script>
+	<script src="../public/js/api.js" ></script>
+</head>
+<body>
+<div id="container">
+	<div id="top">欢迎,&nbsp;<span id="userNameText"></span><a href="././logout">退出</a><div class="clear"></div></div>
+	<div id="left">
+		<div class="buttonBar"><button id="addBtn" >新建笔记</button></div>
+		<div class="messageBar">一共&nbsp;<span id="totalNumText">0</span>&nbsp;篇笔记</div>
+		<div id="noteList"> 
+		</div>
+	</div> 
+	<div id="right">
+		<div class="buttonBar"><button id="editBtn" >编辑</button>&nbsp;<button id="delBtn" >删除</button><button  style="display:none;" id="saveBtn" >保存</button>&nbsp;<button id="cancleBtn" style="display:none;" >取消</a></div>
+		<div id="titleBar" >欢迎使用云笔记</div>
+		<div class="messageBar">创建时间&nbsp;:&nbsp;<span id="createTimeText"></span></div>
+		<div id="noteContent">
+		</div>
+	</div>  
+	<div class="clear"></div>
+</div>
+<script>
+window.onload=function()
+{ 
+	/**取消高亮*/
+	function cancleHiglight()
+	{
+		for(var i=0;i<noteList.children.length;i++)
+		{
+			noteList.children[i].classList.remove("noteActive");
+		}
+	}
+	/**显示笔记**/
+	function showNote(noteItem,item)
+	{
+		cancleHiglight();
+		editBtn.style.display="";
+		delBtn.style.display="";
+		saveBtn.style.display="none";
+		cancleBtn.style.display="none"; 
+		noteItem.classList.add("noteActive");
+		titleBar.innerText=item.title;
+		createTimeText.innerText=new Date(item.createTime).toLocaleFormat();
+		noteContent.innerHTML=item.content;
+		
+		editBtn.onclick=function()
+		{
+			editBtn.style.display="none";
+			delBtn.style.display="none";
+			saveBtn.style.display="";
+			cancleBtn.style.display=""; 
+		
+			titleBar.innerHTML="";
+			noteContent.innerHTML="";
+			let i=document.createElement("input");
+			i.value=item.title;
+			titleBar.appendChild(i);
+			let t=document.createElement("textarea");
+			t.value=item.title;
+			noteContent.appendChild(t);
+		};
+		delBtn.onclick=function()
+		{
+			delNote(item.id,function()
+			{
+				noteList.removeChild(noteItem);
+				delBtn.onclick=null;
+				editBtn.onclick=null;
+				titleBar.innerHTML="欢迎使用云笔记";
+				noteContent.innerHTML="";
+			});
+		};
+		saveBtn.onclick=function()
+		{
+			editNote(
+				item.id,titleBar.querySelector("input").value,noteContent.querySelector("textarea").value,
+				function(res){
+					noteItem.querySelector(".noteTitle").innerText=res.title;
+					noteItem.querySelector(".noteSummary").innerText=new Date(res.createTime).toLocaleFormat();
+					showNote(noteItem,res);
+				}
+			);
+		};
+		cancleBtn.onclick=function()
+		{
+			showNote(noteItem,item);
+		};
+	};
+	/**添加笔记**/
+	function addNoteItem(item)
+	{
+		let noteItem=document.createElement("div"); 
+		noteItem.className="noteItem";
+		let noteTitle=document.createElement("div");
+		noteTitle.className="noteTitle";
+		noteTitle.innerText=item.title;
+		
+		let noteSummary=document.createElement("div");
+		noteSummary.className="noteSummary";
+		noteSummary.innerText=new Date(item.createTime).toLocaleFormat();
+		
+		noteItem.appendChild(noteTitle);
+		noteItem.appendChild(noteSummary);
+		noteList.appendChild(noteItem); 
+		noteItem.addEventListener("click",function(evt){
+			showNote(noteItem,item);
+		});
+		return noteItem;
+	};
+	
+	getUserInfo(function(res){
+		userNameText.innerText=res.name;
+	});
+	getNoteList(function(res){
+		noteList.innerHTML="";
+		if(res==null||res.length==0)
+		{
+			//没有笔记
+			totalNumText.innerText=0;
+		}else
+		{
+			totalNumText.innerText=res.length;
+			for(let i=0;i<res.length;i++)
+			{
+				let item=res[i];
+				addNoteItem(item);
+			}
+		}
+	});
+	addBtn.addEventListener("click",function(evt){
+		cancleHiglight();
+		editBtn.style.display="none";
+		delBtn.style.display="none";
+		saveBtn.style.display="";
+		cancleBtn.style.display=""; 
+		titleBar.innerHTML="<input value='新建笔记' />";
+		createTimeText.innerText=new Date().toLocaleFormat();
+		noteContent.innerHTML="<textarea ></textarea>";
+		saveBtn.onclick=function()
+		{
+			addNote(
+				titleBar.querySelector("input").value,noteContent.querySelector("textarea").value,
+				function(res){ 
+					showNote(addNoteItem(res),res);
+				}
+			);
+		};
+		cancleBtn.onclick=function()
+		{
+			editBtn.style.display="";
+			delBtn.style.display="";
+			saveBtn.style.display="none";
+			cancleBtn.style.display="none"; 
+			titleBar.innerHTML="欢迎使用云笔记";
+			noteContent.innerHTML="";
+			editBtn.onclick=null;
+			delBtn.onclick=null;
+		};
+	});
+};
+</script>
+</body>
+</html>

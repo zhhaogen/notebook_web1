@@ -1,0 +1,32 @@
+html,body
+{
+	font: 12px/1 "Microsoft Yahei","微软雅黑","黑体","SimHei",Arial,sans-serif;
+	color: #2E2E2E;
+	padding:0;
+	margin:0;   
+}
+.top
+{ 
+	padding: 0 12px;
+	overflow: hidden;
+	line-height: 30px;
+	color: #fff;
+	background: #3790ce;
+}
+.warpper
+{ 
+	margin:20px auto;
+	width: 350px; 
+	padding:20px;
+	font-size:15px;
+	border: 1px solid #d3d8db;
+	overflow:hidden;
+}
+.warpper div
+{ 
+	margin-top:10px;
+}
+.warpper input
+{
+	width:300px;
+}

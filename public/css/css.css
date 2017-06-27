@@ -1,0 +1,154 @@
+html,body
+{
+	font: 12px/1 "Microsoft Yahei","微软雅黑","黑体","SimHei",Arial,sans-serif;
+	color: #2E2E2E;
+	padding:0;
+	margin:0;  
+	overflow-y:hidden;
+	overflow-x:auto;
+}
+#container
+{ 
+	min-width: 600px; 
+}
+.clear 
+{ 
+	height:0;
+    clear: both;
+}
+#top
+{ 
+	padding: 0 12px;
+	overflow: hidden;
+	line-height: 30px;
+	color: #fff;
+	background: #3790ce;
+}
+#top a
+{
+	float: right;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+}
+.buttonBar
+{  
+	padding: 9px 12px;
+	border-bottom: 1px solid #d3d8db;
+	background:#f8f8f8; 
+}
+.buttonBar button
+{
+	display: inline-block;
+	margin: 0;
+	padding: 0 5px;
+	color: #2e2e2e;
+	background: #e3edf9;
+	border-radius: 1px;
+	border: 1px solid #bdd5ee;
+	cursor: pointer;
+	height: 30px;
+}
+.messageBar
+{ 
+	line-height: 32px;
+	background: #fff;
+	border-bottom: 1px solid #e3e3e3;
+	border-top: 1px solid #f2eeee; 
+	padding-left:12px;
+}
+.messageBar span
+{
+	color: #3790ce;
+	max-width: 20em;
+	outline: none;
+	display: inline-block;
+	vertical-align: bottom;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#left
+{ 
+	float: left;
+	width: 257px;
+	border-right: 1px solid #d3d8db;
+	border-bottom: none; 
+	background: #f5f6f7; 
+} 
+#right
+{  
+	float: left;
+	background: #fff;
+	min-width: 323px;  
+	background: #fff;
+	width: calc(100% - 258px );
+}
+#titleBar
+{
+	border-top: 1px solid #f2eeee; 
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	line-height: 35px;
+	font-size: 15px;
+	font-weight: bold;
+	padding-left:12px;
+	width: calc(100% - 15px );
+}
+#titleBar input
+{
+	width: calc(100% - 15px );
+	font-size: 15px;
+	font-weight: bold;
+}
+#noteContent
+{
+	font-size: 16px;
+	word-break: break-all;
+	word-wrap: break-word;
+	min-height: 300px;
+	overflow-y: auto;
+	padding-left:12px;
+	height:calc(100vh - 30px - 49px - 36px - 34px );
+	width: calc(100% - 15px );
+}
+#noteContent textarea
+{
+	width: calc(100% - 15px );
+	font-size: 16px;
+	word-break: break-all;
+	word-wrap: break-word; 
+	height:100%;
+	overflow-y: auto;
+}
+#noteList
+{
+	overflow-y: auto; 
+	height:calc(100vh - 30px - 49px - 34px );
+}
+.noteItem
+{
+	padding: 12px;
+	border-bottom: 1px solid #e1e6e9;
+	cursor: pointer;
+	font-size: 14px;
+}
+.noteTitle
+{
+	margin-bottom: 3px; 
+	line-height: 18px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.noteSummary
+{
+	color: #7fabbd;
+	line-height: 18px;
+}
+.noteActive{ 
+	border-color: #bad4e9;
+	background: #dae7f2;
+	box-shadow: 0 -1px 0 #bad4e9;
+}
